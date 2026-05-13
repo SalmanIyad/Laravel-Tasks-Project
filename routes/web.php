@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return view('welcome');
@@ -89,4 +90,27 @@ Route::post('/logout', function () {
     session()->forget('email');
 
     return redirect('/login');
+});
+
+Route::get('/books', function () {
+    return view('books');
+});
+
+Route::get('/books/create', function () {
+    return view('add_book');
+});
+
+
+Route::post('/books/store', function () {
+    
+    DB::table('books')->insert([
+        'title' => request('title'),
+        'author' => request('author'),
+        'created_at' => now(), 
+        'updated_at' => now(),
+    ]);
+
+    return redirect('/books')->with('success', 'Book added successfully!');
+    // return redirect('/books');
+    // return redirect()->back();
 });
