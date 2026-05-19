@@ -93,16 +93,17 @@ Route::post('/logout', function () {
 });
 
 Route::get('/books', function () {
-    return view('books');
+
+    $books = DB::table('books')->get();
+    return view('books', compact('books'));
+    
 });
 
 Route::get('/books/create', function () {
     return view('add_book');
 });
 
-
 Route::post('/books/store', function () {
-    
     DB::table('books')->insert([
         'title' => request('title'),
         'author' => request('author'),
@@ -111,6 +112,37 @@ Route::post('/books/store', function () {
     ]);
 
     return redirect('/books')->with('success', 'Book added successfully!');
-    // return redirect('/books');
-    // return redirect()->back();
+});
+
+Route::get('/books/{id}/edit', function ($id) {
+
+    $book = DB::table('books')->where('id', $id)->first();
+    
+    if (!$book) {
+        return redirect('/books')->with('error', 'Book not found.');
+    }
+    
+    return view('edit_book', compact('book'));
+
+});
+
+
+Route::put('/books/{id}', function ($id) {
+
+    DB::table('books')->where('id', $id)->update([
+        'title' => request('title'),
+        'author' => request('author'),
+        'updated_at' => now(),
+
+    ]);
+
+    return redirect('/books')->with('success', 'Book updated successfully!');
+});
+
+
+Route::delete('/books/{id}', function ($id) {
+
+    DB::table('books')->where('id', $id)->delete();
+    
+    return redirect('/books')->with('success', 'Book deleted successfully!');
 });
