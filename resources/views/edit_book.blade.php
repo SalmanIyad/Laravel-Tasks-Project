@@ -5,11 +5,11 @@
 @section('description', 'Edit book details')
 
 <div class="container mx-auto px-4 py-8">
-    <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+    <div class="max-w-lg mx-auto bg-white p-6 rounded-lg">
 
         <h2 class="text-2xl font-bold mb-6 text-gray-800"> Edit Book</h2>
 
-        <form action="/books/{{ $book->id }}" method="POST">
+        <form action="/admin/books/{{ $book->id }}" method="POST">
             @csrf
             @method('PUT')
             

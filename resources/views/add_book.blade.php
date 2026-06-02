@@ -5,11 +5,11 @@
 
     <div class="container mx-auto px-4 py-8">
 
-        <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+        <div class="max-w-lg mx-auto bg-white p-6 rounded-lg">
 
             <h2 class="text-2xl font-bold mb-6 text-gray-800">Add New Book</h2>
 
-            <form action="/books/store" method="POST">
+            <form action="/admin/books/store" method="POST">
                 @csrf
 
                 <div class="mb-4">
@@ -33,7 +33,7 @@
 
                 <div class="flex items-center justify-between">
                     <button type="submit"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer">
                         Save Book
                     </button>
 

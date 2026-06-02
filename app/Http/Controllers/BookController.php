@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Book;
 
@@ -21,11 +22,19 @@ class BookController extends Controller
 
     public function create()
     {
+        if (!Auth::check() || Auth::user()->role !== 'Admin') {
+            return redirect('/books')->with('error', 'Unauthorized access. Only Admins can add books.');
+        }
+
         return view('add_book');
     }
 
     public function store(Request $request)
     {
+        if (!Auth::check() || Auth::user()->role !== 'Admin') {
+            return redirect('/books')->with('error', 'Unauthorized access.');
+        }
+
         // DB::table('books')->insert([
         //     'title' => request('title'),
         //     'author' => request('author'),
@@ -64,6 +73,10 @@ class BookController extends Controller
 
     public function edit($id)
     {
+        if (!Auth::check() || Auth::user()->role !== 'Admin') {
+            return redirect('/books')->with('error', 'Unauthorized access. Only Admins can edit books.');
+        }
+
         // $book = DB::table('books')->where('id', $id)->first();
         $book = Book::find($id);
         
@@ -77,6 +90,10 @@ class BookController extends Controller
 
     public function update($id, Request $request)
     {
+        if (!Auth::check() || Auth::user()->role !== 'Admin') {
+            return redirect('/books')->with('error', 'Unauthorized access.');
+        }
+
         // DB::table('books')->where('id', $id)->update([
         //     'title' => request('title'),
         //     'author' => request('author'),
@@ -103,6 +120,10 @@ class BookController extends Controller
 
     public function destroy($id)
     {
+        if (!Auth::check() || Auth::user()->role !== 'Admin') {
+            return redirect('/books')->with('error', 'Unauthorized access.');
+        }
+
         // DB::table('books')->where('id', $id)->delete();
 
         $book = Book::find($id);

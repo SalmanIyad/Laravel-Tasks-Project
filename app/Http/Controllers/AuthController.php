@@ -93,4 +93,44 @@ class AuthController extends Controller
 
         return redirect('/login');
     }
+    public function edit()
+    {
+        $user = Auth::user();
+        $roles = ['Admin', 'User', 'Guest'];
+        return view('edit_user', compact('user', 'roles'));
+    }
+
+    public function update(Request $request)
+    {
+        $user = User::find(Auth::id());
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'role' => 'required|in:Admin,User,Guest',
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role = $request->role;
+        
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return redirect('/dashboard')->with('success', 'Profile updated successfully!');
+    }
+
+    public function destroy()
+    {
+        $user = User::find(Auth::id());
+        
+        Auth::logout();
+        $user->delete();
+
+        return redirect('/login')->with('success', 'Account deleted successfully.');
+    }
 }

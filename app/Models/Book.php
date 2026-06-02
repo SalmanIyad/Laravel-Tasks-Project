@@ -16,7 +16,7 @@ class Book extends Model
     // $book = Book::create($attributes);
 
     // why we use it ?
-    // instead of doing this:
+    // instead of doing this:   
     // $book = new Book();
     // $book->title = request('title');
     // $book->author = request('author');
