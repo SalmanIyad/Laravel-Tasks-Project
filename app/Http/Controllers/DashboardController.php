@@ -9,12 +9,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
-
-        $email = Auth::user()->email;
-
-        return view('dashboard', compact('email'));
+        return view('dashboard');
     }
 }

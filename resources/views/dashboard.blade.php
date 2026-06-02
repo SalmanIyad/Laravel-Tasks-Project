@@ -1,31 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
+@section('title', 'Dashboard')
+@section('header', 'Dashboard')
+@section('description')
+    @auth
+        Welcome, <span class="font-semibold text-blue-700">{{ $email ?? Auth::user()->email }}</span>!
+    @else
+        View your personalized dashboard
+    @endauth
+@endsection
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>dashboard</title>
-
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-</head>
-
-<body class="bg-gray-100 min-h-screen m-2">
-
+@section('content')
     <div>
-        <h1 class="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
-
-        <h3 class="text-lg text-gray-700 mb-8">Welcome, <span class="font-semibold underline text-blue-700">{{ $email }}</span>!</h3>
-
-        <form action="/logout" method="POST">
-            @csrf
-            <button type="submit"
-                class="w-fit bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">Logout</button>
-        </form>
+        @auth
+            <p class="text-gray-700 mb-6">You are successfully logged in and can now manage your resources.</p>
+            <form action="/logout" method="POST">
+                @csrf
+                <button type="submit"
+                    class="w-fit bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">Logout</button>
+            </form>
+        @else
+            <p class="text-gray-700 mb-6">It looks like you are not logged in. Please log in to continue.</p>
+            <a href="/login" class="inline-block w-fit bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">Login to Dashboard</a>
+        @endauth
     </div>
-
-</body>
-
-</html>
+@endsection

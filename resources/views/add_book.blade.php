@@ -3,42 +3,52 @@
 @section('content')
 @section('description', 'Add new book to your collection and manage it')
 
-<div class="container mx-auto px-4 py-8">
+    <div class="container mx-auto px-4 py-8">
 
-    <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+        <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
 
-        <h2 class="text-2xl font-bold mb-6 text-gray-800">Add New Book</h2>
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Add New Book</h2>
 
-        <form action="/books/store" method="POST">
-            @csrf
-            
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Book Title</label>
-                <input type="text" name="title" id="title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-            </div>
+            <form action="/books/store" method="POST">
+                @csrf
 
-            <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="author">Author</label>
-                <input type="text" name="author" id="author" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-            
-            </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Book Title</label>
+                    <input type="text" name="title" id="title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline 
+                                @error('title') border-red-500 bg-red-50 @enderror
+                                " required>
+                    <!-- required -> client side validation, we need to add server side validation too -->
 
-            <div class="flex items-center justify-between">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                    Save Book
-                </button>
+                    <p class="text-red-500">{{ $errors->first('title') }}</p>
+                </div>
 
-                <a href="/books" class="inline-block align-baseline font-bold text-sm text-gray-500 hover:text-gray-800">
-                    Cancel
-                </a>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="author">Author</label>
+                    <input type="text" name="author" id="author"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required>
+                    <!-- required -> client side validation -->
 
-            </div>
+                </div>
 
-        </form>
+                <div class="flex items-center justify-between">
+                    <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Save Book
+                    </button>
+
+                    <a href="/books"
+                        class="inline-block align-baseline font-bold text-sm text-gray-500 hover:text-gray-800">
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
 
     </div>
-
-</div>
 
 
 @endsection

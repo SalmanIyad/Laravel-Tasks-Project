@@ -15,18 +15,18 @@
 
         <h1 class="mt-0 mb-5 text-2xl text-center">Create Account</h1>
 
-        <input type="text" name="name" value="{{ old('name') }}" placeholder="Full Name" class="w-full p-3 mb-3.5 border border-gray-300 rounded-md text-base">
+        <input type="text" name="name" value="{{ old('name') }}" placeholder="Full Name" class="w-full p-3 mb-3.5 border border-gray-300 rounded-md text-base @error('name') border-red-500 bg-red-50 @enderror">
         @error('name') <p class="text-red-500 text-xs mb-2 mt-[-10px]">{{ $message }}</p> @enderror
 
-        <input type="text" name="email" value="{{ old('email') }}" placeholder="Email" class="w-full p-3 mb-3.5 border border-gray-300 rounded-md text-base">
+        <input type="text" name="email" value="{{ old('email') }}" placeholder="Email" class="w-full p-3 mb-3.5 border border-gray-300 rounded-md text-base @error('email') border-red-500 bg-red-50 @enderror">
         @error('email') <p class="text-red-500 text-xs mb-2 mt-[-10px]">{{ $message }}</p> @enderror
         
-        <input type="password" name="password" placeholder="Password" class="w-full p-3 mb-3.5 border border-gray-300 rounded-md text-base">
+        <input type="password" name="password" placeholder="Password" class="w-full p-3 mb-3.5 border border-gray-300 rounded-md text-base @error('password') border-red-500 bg-red-50 @enderror">
         @error('password') <p class="text-red-500 text-xs mb-2 mt-[-10px]">{{ $message }}</p> @enderror
 
         <input type="password" name="password_confirmation" placeholder="Confirm Password" class="w-full p-3 mb-3.5 border border-gray-300 rounded-md text-base">
         
-        <select name="role" class="w-full p-3 mb-3.5 border border-gray-300 rounded-md text-base">
+        <select name="role" class="w-full p-3 mb-3.5 border border-gray-300 rounded-md text-base @error('role') border-red-500 bg-red-50 @enderror">
             @foreach ($roles as $role)
                 <option value="{{ $role }}" {{ old('role') == $role ? 'selected' : '' }}>{{ $role }}</option>
             @endforeach

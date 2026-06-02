@@ -15,9 +15,11 @@
 
         <h1 class="mt-0 mb-5 text-2xl text-center">Login</h1>
 
-        <input type="text" name="email" placeholder="Email" class="w-full p-3 mb-3.5 border border-gray-300 rounded-md text-base">
+        <input type="text" name="email" value="{{ old('email') }}" placeholder="Email" class="w-full p-3 mb-3.5 border border-gray-300 rounded-md text-base @error('email') border-red-500 bg-red-50 @enderror">
+        @error('email') <p class="text-red-500 text-xs mb-2 mt-[-10px]">{{ $message }}</p> @enderror
         
-        <input type="password" name="password" placeholder="Password" class="w-full p-3 mb-3.5 border border-gray-300 rounded-md text-base">
+        <input type="password" name="password" placeholder="Password" class="w-full p-3 mb-3.5 border border-gray-300 rounded-md text-base @error('password') border-red-500 bg-red-50 @enderror">
+        @error('password') <p class="text-red-500 text-xs mb-2 mt-[-10px]">{{ $message }}</p> @enderror
         
         <select name="role" class="w-full p-3 mb-3.5 border border-gray-300 rounded-md text-base">
             @foreach ($roles as $role)
@@ -30,6 +32,10 @@
         @if (session('error'))
             <p class="text-red-500 mt-2.5 text-sm text-center ">{{ session('error') }}</p>
         @endif 
+
+        <div class="mt-4 text-center text-sm">
+            <a href="/register" class="text-blue-500 hover:underline">Don't have an account? Register</a>
+        </div>
 
     </form>
 

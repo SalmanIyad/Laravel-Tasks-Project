@@ -17,9 +17,20 @@
                 <div class="flex items-center">
                     <h1 class="text-2xl font-bold text-blue-600">Tasks Project</h1>
                 </div>
-                <ul class="flex space-x-6">
-                    <li><a href="/dashboard" class="text-gray-700 hover:text-blue-600 transition">Dashboard</a></li>
-                    <li><a href="/books" class="text-gray-700 hover:text-blue-600 transition">Books</a></li>
+                <ul class="flex space-x-6 items-center">
+                    @auth
+                        <li><a href="/dashboard" class="text-gray-700 hover:text-blue-600 transition">Dashboard</a></li>
+                        <li><a href="/books" class="text-gray-700 hover:text-blue-600 transition">Books</a></li>
+                        <li>
+                            <form action="/logout" method="POST" class="inline m-0">
+                                @csrf
+                                <button type="submit" class="text-red-500 hover:text-red-700 transition font-semibold cursor-pointer">Logout</button>
+                            </form>
+                        </li>
+                    @else
+                        <li><a href="/login" class="text-blue-600 hover:text-blue-800 transition font-semibold">Login</a></li>
+                        <li><a href="/register" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1.5 px-4 rounded transition">Register</a></li>
+                    @endauth
                 </ul>
             </div>
         </div>
@@ -42,7 +53,7 @@
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
-            </div>
+            </div>  
         @endif
 
         @if (session('success'))
@@ -85,8 +96,13 @@
                     <h4 class="text-white font-semibold mb-4">Quick Links</h4>
                     <ul class="text-sm space-y-2">
                         <li><a href="/" class="hover:text-white transition">Home</a></li>
-                        <li><a href="/login" class="hover:text-white transition">Login</a></li>
-                        <li><a href="#" class="hover:text-white transition">Register</a></li>
+                        @auth
+                            <li><a href="/dashboard" class="hover:text-white transition">Dashboard</a></li>
+                            <li><a href="/books" class="hover:text-white transition">Books</a></li>
+                        @else
+                            <li><a href="/login" class="hover:text-white transition">Login</a></li>
+                            <li><a href="/register" class="hover:text-white transition">Register</a></li>
+                        @endauth
                     </ul>
                 </div>
                 <div>
